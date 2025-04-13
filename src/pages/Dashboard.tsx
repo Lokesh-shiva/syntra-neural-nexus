@@ -5,7 +5,7 @@ import AnimatedContainer from "@/components/AnimatedContainer";
 import { TrendingUp, MessageSquare, Settings, ArrowDown, BarChart2, Calendar, PieChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { animate } from "animejs";
+import anime from "animejs";
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
@@ -14,14 +14,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Loading animation
-    animate({
+    anime({
       targets: ".dashboard-loader",
       opacity: [1, 0],
       duration: 800,
       easing: "easeInOutQuad",
       complete: () => {
         // After loader fades out, animate dashboard content
-        animate({
+        anime({
           targets: ".dashboard-content",
           opacity: [0, 1],
           translateY: [20, 0],
@@ -59,13 +59,13 @@ const Dashboard = () => {
     
     // Animate stat counters
     const animateCounters = () => {
-      animate({
+      anime({
         targets: '.counter',
-        innerHTML: (el: any) => [0, el.getAttribute('data-value')],
+        innerHTML: function(el: any) { return [0, el.getAttribute('data-value')]; },
         easing: 'easeInOutExpo',
         round: true,
         duration: 2000,
-        delay: animate.stagger(200)
+        delay: function(el: any, i: number) { return i * 200; }
       });
     };
     
