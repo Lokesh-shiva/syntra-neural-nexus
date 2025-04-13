@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import AnimatedContainer from "@/components/AnimatedContainer";
-import anime from "animejs";
+import * as anime from "animejs";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -20,7 +20,7 @@ const Signup = () => {
   
   useEffect(() => {
     // Animate elements
-    anime({
+    anime.default({
       targets: ".signup-element",
       opacity: [0, 1],
       translateY: [20, 0],
@@ -29,12 +29,12 @@ const Signup = () => {
     });
     
     // Animate background particles
-    const particlesAnimation = anime({
+    const particlesAnimation = anime.default({
       targets: ".signup-particle",
-      translateX: function() { return anime.random(-20, 20); },
-      translateY: function() { return anime.random(-20, 20); },
-      scale: function() { return anime.random(0.8, 1.2); },
-      opacity: function() { return anime.random(0.3, 0.6); },
+      translateX: function() { return anime.default.random(-20, 20); },
+      translateY: function() { return anime.default.random(-20, 20); },
+      scale: function() { return anime.default.random(0.8, 1.2); },
+      opacity: function() { return anime.default.random(0.3, 0.6); },
       easing: "easeInOutQuad",
       duration: 3000,
       complete: function(anim) {
