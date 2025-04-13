@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import AnimatedContainer from "@/components/AnimatedContainer";
-import anime from "animejs/lib/anime.es.js";  // Specify the correct module path
+import anime from "animejs";  // Changed to standard import
 
 const Signup = () => {
   const [name, setName] = useState("");
