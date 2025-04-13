@@ -8,6 +8,7 @@ import StatsOverview from "@/components/dashboard/StatsOverview";
 import InteractionsSection from "@/components/dashboard/InteractionsSection";
 import SettingsSection from "@/components/dashboard/SettingsSection";
 import DashboardLoader from "@/components/dashboard/DashboardLoader";
+import { animate } from "animejs";
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
