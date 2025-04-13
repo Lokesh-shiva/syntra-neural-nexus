@@ -47,6 +47,14 @@ yarn dev
 
 4. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+## 🔑 Accessing the Dashboard
+
+To access the dashboard, simply append `/dashboard` to the base URL:
+- Development: [http://localhost:5173/dashboard](http://localhost:5173/dashboard)
+- Production: [https://your-domain.com/dashboard](https://your-domain.com/dashboard)
+
+The dashboard provides a simulated analytics view and content management interface. No authentication is required for testing purposes.
+
 ## 📖 Documentation
 
 - [Product Requirements Document](./PRD.md)

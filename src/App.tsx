@@ -11,6 +11,7 @@ import { AuthProvider } from "./hooks/useAuth";
 import ErrorBoundary from "./components/ErrorBoundary";
 import PageTransition from "./components/PageTransition";
 import Preloader from "./components/Preloader";
+import DashboardHint from "./components/DashboardHint";
 import "./App.css";
 
 // Lazy load page components for better performance
@@ -62,6 +63,7 @@ function App() {
               <ScrollToTop />
               <PerformanceOptimizer>
                 <Preloader onPreloadComplete={handlePreloadComplete} />
+                <DashboardHint />
                 <Suspense fallback={<Loading />}>
                   <PageTransition>
                     <Routes>
