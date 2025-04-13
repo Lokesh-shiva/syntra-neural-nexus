@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import AnimatedContainer from "@/components/AnimatedContainer";
-import anime from "animejs";  // Fix the import
+import { animate, random } from "animejs";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,21 +16,21 @@ const Login = () => {
   
   useEffect(() => {
     // Animate elements
-    anime({
+    animate({
       targets: ".login-element",
       opacity: [0, 1],
       translateY: [20, 0],
-      delay: anime.stagger(100, { start: 300 }),
+      delay: animate.stagger(100, { start: 300 }),
       easing: "easeOutExpo"
     });
     
     // Animate background particles
-    const particlesAnimation = anime({
+    const particlesAnimation = animate({
       targets: ".login-particle",
-      translateX: () => anime.random(-20, 20),
-      translateY: () => anime.random(-20, 20),
-      scale: () => anime.random(0.8, 1.2),
-      opacity: () => anime.random(0.3, 0.6),
+      translateX: () => random(-20, 20),
+      translateY: () => random(-20, 20),
+      scale: () => random(0.8, 1.2),
+      opacity: () => random(0.3, 0.6),
       easing: "easeInOutQuad",
       duration: 3000,
       complete: function(anim) {
