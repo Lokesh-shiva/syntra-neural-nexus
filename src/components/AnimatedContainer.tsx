@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from "react";
-import anime from "animejs";  // Changed to standard import
+import * as animeJS from "animejs";  // Import as namespace
 
 interface AnimatedContainerProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ const AnimatedContainer = ({
   
   useEffect(() => {
     if (containerRef.current) {
-      anime({
+      animeJS.default({
         targets: containerRef.current,
         opacity: [0, 1],
         translateY: [20, 0],
