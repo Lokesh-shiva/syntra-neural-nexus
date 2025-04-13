@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +9,11 @@ import FeatureCard from '@/components/FeatureCard';
 import WorkflowStep from '@/components/WorkflowStep';
 import ContentCard from '@/components/ContentCard';
 import { Lightbulb, Wand2, ImageIcon, Video, Search, Brain, Lightbulb as LightbulbIdea, PenTool, Share2 } from 'lucide-react';
+import HeroSection from '@/components/HeroSection';
+import FeaturesSection from '@/components/FeaturesSection';
+import WorkflowSection from '@/components/WorkflowSection';
+import ShowcaseSection from '@/components/ShowcaseSection';
+import ContactSection from '@/components/ContactSection';
 
 const Index = () => {
   const [email, setEmail] = useState('');
@@ -113,7 +117,7 @@ const Index = () => {
     },
     {
       title: "Agents Activate",
-      description: "SYNTRA's intelligent agents collaborate to process your request.",
+      description: "Orbynet's intelligent agents collaborate to process your request.",
       icon: Brain,
       step: 2
     },
@@ -152,194 +156,30 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center py-20 px-4 overflow-hidden">
-        <NeuralAnimation />
-        
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="flex justify-center mb-8">
-            <SyntraLogo className="animate-float" />
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-glow">
-            Think It. Prompt It. <span className="gradient-text">SYNTRA</span> Does the Rest.
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            The next-gen AI automation platform that transforms ideas into polished social media content with intelligent agents.
-          </p>
-          
-          <Button 
-            size="lg" 
-            onClick={scrollToDemo}
-            className="bg-gradient-to-r from-syntra-purple to-syntra-blue hover:from-syntra-purple/90 hover:to-syntra-blue/90 text-white font-bold py-6 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-lg animate-pulse-glow"
-          >
-            Launch the Engine
-          </Button>
-        </div>
-        
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-8 h-12 rounded-full border-2 border-syntra-purple flex items-start justify-center p-1">
-            <div className="w-1 h-3 bg-syntra-purple rounded-full animate-pulse-glow"></div>
-          </div>
-        </div>
-      </section>
+      <HeroSection scrollToDemo={scrollToDemo} />
 
       {/* Features Section */}
-      <section 
-        id="agents" 
-        ref={demoRef}
-        className="py-20 px-4"
-      >
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 gradient-text inline-block">
-              Intelligent Agents
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              SYNTRA's powerful AI agents work together to automate your content creation workflow.
-            </p>
-          </div>
-          
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${
-            isIntersecting.agents ? 'animate-slide-up' : 'opacity-0'
-          }`}>
-            {features.map((feature, index) => (
-              <FeatureCard 
-                key={index}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeaturesSection />
 
       {/* Workflow Section */}
-      <section 
-        id="workflow" 
-        className="py-20 px-4 relative"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-syntra-dark to-syntra-dark/50 z-0"></div>
-        
-        <div className="container mx-auto max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 gradient-text inline-block">
-              How SYNTRA Works
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              A seamless three-step process from idea to published content.
-            </p>
-          </div>
-          
-          <div className={`flex flex-col md:flex-row justify-between items-start ${
-            isIntersecting.workflow ? 'animate-slide-up' : 'opacity-0'
-          }`}>
-            {workflowSteps.map((step, index) => (
-              <WorkflowStep 
-                key={index}
-                title={step.title}
-                description={step.description}
-                icon={step.icon}
-                step={step.step}
-                isLast={index === workflowSteps.length - 1}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <WorkflowSection />
 
       {/* Showcase Section */}
-      <section 
-        id="showcase" 
-        className="py-20 px-4"
-      >
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 gradient-text inline-block">
-              Showcase
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Examples of content automatically generated by SYNTRA.
-            </p>
-          </div>
-          
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${
-            isIntersecting.showcase ? 'animate-slide-up' : 'opacity-0'
-          }`}>
-            {showcaseContent.map((content, index) => (
-              <ContentCard 
-                key={index}
-                title={content.title}
-                description={content.description}
-                hashtags={content.hashtags}
-                imageSrc={content.imageSrc}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <ShowcaseSection />
 
       {/* CTA Section */}
-      <section 
-        id="contact" 
-        className="py-20 px-4 relative"
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-syntra-dark/90 to-transparent z-0"></div>
-        
-        <div className="container mx-auto max-w-3xl relative z-10">
-          <div className={`glass-panel p-8 md:p-12 rounded-2xl glow-effect-purple ${
-            isIntersecting.contact ? 'animate-slide-up' : 'opacity-0'
-          }`}>
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-                Step Into the Future
-              </h2>
-              <p className="text-xl text-gray-300 max-w-xl mx-auto">
-                Join the SYNTRA beta and revolutionize your content creation process.
-              </p>
-            </div>
-            
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                />
-                <Button 
-                  type="submit"
-                  className="bg-gradient-to-r from-syntra-purple to-syntra-blue hover:from-syntra-purple/90 hover:to-syntra-blue/90 text-white font-semibold"
-                >
-                  Join the Beta
-                </Button>
-              </div>
-            </form>
-            
-            <div className="mt-12 text-center">
-              <p className="text-gray-400 text-sm">
-                Already have access? <a href="#" className="text-syntra-purple hover:underline">Sign in</a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContactSection />
 
       {/* Footer */}
       <footer className="py-8 px-4 border-t border-white/10">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <span className="text-2xl font-bold gradient-text">SYNTRA</span>
+              <span className="text-2xl font-bold gradient-text">Orbynet</span>
             </div>
             
             <div className="text-gray-500 text-sm">
-              © 2025 SYNTRA. All rights reserved.
+              © 2025 Orbynet. All rights reserved.
             </div>
           </div>
         </div>

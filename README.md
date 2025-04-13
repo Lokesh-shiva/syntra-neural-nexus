@@ -1,73 +1,83 @@
-# Welcome to your Lovable project
+# 🌟 Orbynet - AI Content Automation Platform
 
-## Project info
+A futuristic AI content automation platform that demonstrates the potential of AI-driven content creation through an immersive, simulated experience. Built for educational purposes to showcase modern web development techniques and UI/UX design principles.
 
-**URL**: https://lovable.dev/projects/8c0afbce-a7a9-45f2-ab05-6f4114d57288
+## ✨ Features
 
-## How can I edit this code?
+- 🤖 Simulated AI content generation
+- 🎨 Beautiful, responsive UI with dark mode
+- ⚡ Smooth animations and transitions
+- 📱 Mobile-first design approach
+- 🔄 Interactive workflow visualization
+- 🎭 Mock authentication system
+- 📊 Simulated analytics dashboard
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
 
-**Use Lovable**
+- **Frontend**: React + Vite
+- **Styling**: TailwindCSS + CSS Modules
+- **Animations**: anime.js + Framer Motion
+- **State**: React Context + Local Storage
+- **Routing**: React Router v6
+- **UI**: Custom components + Radix UI
+- **Icons**: Lucide Icons
+- **Deployment**: Vercel
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8c0afbce-a7a9-45f2-ab05-6f4114d57288) and start prompting.
+## 🚀 Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+1. Clone the repository:
+\`\`\`bash
+git clone https://github.com/yourusername/orbynet.git
+cd orbynet
+\`\`\`
 
-**Use your preferred IDE**
+2. Install dependencies:
+\`\`\`bash
+npm install
+# or
+yarn install
+\`\`\`
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+\`\`\`bash
 npm run dev
-```
+# or
+yarn dev
+\`\`\`
 
-**Edit a file directly in GitHub**
+4. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📖 Documentation
 
-**Use GitHub Codespaces**
+- [Product Requirements Document](./PRD.md)
+- [Component Documentation](./docs/components.md)
+- [Animation Guidelines](./docs/animations.md)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🎯 Project Status
 
-## What technologies are used for this project?
+Check out our [PRD.md](./PRD.md) file for detailed information about:
+- ✅ Completed features
+- 🚧 Work in progress
+- 📌 Upcoming tasks
 
-This project is built with:
+## 🤝 Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This is a demonstration project, but we welcome contributions! Please feel free to:
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
 
-## How can I deploy this project?
+## 📄 License
 
-Simply open [Lovable](https://lovable.dev/projects/8c0afbce-a7a9-45f2-ab05-6f4114d57288) and click on Share -> Publish.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Can I connect a custom domain to my Lovable project?
+## 🙏 Acknowledgments
 
-Yes it is!
+- Built with [React](https://reactjs.org/)
+- Styled with [TailwindCSS](https://tailwindcss.com/)
+- Animated with [anime.js](https://animejs.com/)
+- Icons by [Lucide](https://lucide.dev/)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Built with ❤️ for the future of content creation

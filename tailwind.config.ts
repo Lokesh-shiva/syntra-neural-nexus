@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -60,6 +59,8 @@ export default {
 					secondary: '#7E69AB',
 					gray: '#8E9196',
 					'dark-gray': '#221F26',
+					green: '#4CAF50',
+					teal: '#009688'
 				}
 			},
 			borderRadius: {
@@ -108,6 +109,20 @@ export default {
 					'0%': { backgroundPosition: '0% 50%' },
 					'50%': { backgroundPosition: '100% 50%' },
 					'100%': { backgroundPosition: '0% 50%' }
+				},
+				'gradient': {
+					'0%': { 
+						'background-position': '0% 50%',
+						'background-size': '200% 200%'
+					},
+					'50%': { 
+						'background-position': '100% 50%',
+						'background-size': '200% 200%'
+					},
+					'100%': { 
+						'background-position': '0% 50%',
+						'background-size': '200% 200%'
+					}
 				}
 			},
 			animation: {
@@ -118,7 +133,8 @@ export default {
 				'particle-float': 'particle-float 8s ease-in-out infinite',
 				'slide-up': 'slide-up 0.6s ease-out',
 				'slide-in-right': 'slide-in-right 0.6s ease-out',
-				'gradient-flow': 'gradient-flow 15s ease infinite'
+				'gradient-flow': 'gradient-flow 15s ease infinite',
+				'gradient': 'gradient 8s ease infinite'
 			}
 		}
 	},

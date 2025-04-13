@@ -1,124 +1,91 @@
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { createContext, useContext, useEffect, useState } from "react";
-import { Session, User } from "@supabase/supabase-js";
-import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
-import { toast } from "@/hooks/use-toast";
+// Mock user data
+const mockUser = {
+  id: 'demo-user-id',
+  email: 'demo@orbynet.ai',
+  name: 'Demo User',
+  created_at: new Date().toISOString(),
+};
+
+type User = typeof mockUser | null;
 
 interface AuthContextType {
-  session: Session | null;
-  user: User | null;
+  user: User;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, userData: any) => Promise<void>;
+  signUp: (email: string, password: string, metadata?: Record<string, any>) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loading: true,
+  signIn: async () => {},
+  signUp: async () => {},
+  signOut: async () => {},
+});
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
+  // Check if user is already logged in (from localStorage)
   useEffect(() => {
-    // Set up auth state listener FIRST
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (event === "SIGNED_IN") {
-          toast({
-            title: "Welcome back!",
-            description: "You've successfully signed in.",
-          });
-        } else if (event === "SIGNED_OUT") {
-          toast({
-            title: "Signed out",
-            description: "You've been signed out successfully.",
-          });
-        }
+    const storedUser = localStorage.getItem('orbynet_user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error('Error parsing stored user:', error);
+        localStorage.removeItem('orbynet_user');
       }
-    );
-
-    // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    }
+    setLoading(false);
   }, []);
 
+  // Mock sign in function
   const signIn = async (email: string, password: string) => {
-    try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      navigate("/dashboard");
-    } catch (error: any) {
-      toast({
-        title: "Sign in failed",
-        description: error.message,
-        variant: "destructive"
-      });
-      throw error;
-    }
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // In a real app, we would verify credentials here
+    // For now, just simulate successful login with mock user
+    localStorage.setItem('orbynet_user', JSON.stringify(mockUser));
+    setUser(mockUser);
   };
 
-  const signUp = async (email: string, password: string, userData: any) => {
-    try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: userData,
-        },
-      });
-      if (error) throw error;
-      
-      toast({
-        title: "Account created",
-        description: "Please check your email to confirm your account.",
-      });
-      
-      navigate("/login");
-    } catch (error: any) {
-      toast({
-        title: "Sign up failed",
-        description: error.message,
-        variant: "destructive"
-      });
-      throw error;
-    }
+  // Mock sign up function
+  const signUp = async (email: string, password: string, metadata?: Record<string, any>) => {
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // In a real app, we would create a new user here
+    // For now, just simulate successful signup with mock user
+    const newUser = {
+      ...mockUser,
+      email,
+      name: metadata?.name || 'Demo User',
+    };
+    
+    localStorage.setItem('orbynet_user', JSON.stringify(newUser));
+    setUser(newUser);
   };
 
+  // Mock sign out function
   const signOut = async () => {
-    try {
-      await supabase.auth.signOut();
-      navigate("/login");
-    } catch (error: any) {
-      toast({
-        title: "Sign out failed",
-        description: error.message,
-        variant: "destructive"
-      });
-    }
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    localStorage.removeItem('orbynet_user');
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ session, user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);

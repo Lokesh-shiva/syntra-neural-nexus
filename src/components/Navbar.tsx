@@ -1,15 +1,34 @@
-
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { motion } from 'framer-motion';
+
+// NavLink Component
+const NavLink: React.FC<{ to: string; label: string; isActive: boolean; onClick?: () => void }> = ({ to, label, isActive, onClick }) => (
+  <Link 
+    to={to} 
+    className={`text-white/80 hover:text-white transition-colors relative ${isActive ? 'text-white' : ''}`}
+    onClick={onClick}
+  >
+    {label}
+    {isActive && (
+      <motion.div 
+        layoutId="navIndicator"
+        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-syntra-purple to-syntra-blue" 
+      />
+    )}
+  </Link>
+);
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,14 +50,10 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
+  const isActive = (path: string) => {
+    return location.pathname === path;
   };
-  
+
   const handleAuthAction = () => {
     if (user) {
       navigate('/dashboard');
@@ -56,35 +71,18 @@ const Navbar: React.FC = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="text-2xl font-bold gradient-text">SYNTRA</Link>
+          <Link to="/" className="text-2xl font-bold gradient-text">Orbynet</Link>
         </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          <button 
-            onClick={() => scrollToSection('home')} 
-            className="text-white/80 hover:text-white transition-colors"
-          >
-            Home
-          </button>
-          <button 
-            onClick={() => scrollToSection('agents')} 
-            className="text-white/80 hover:text-white transition-colors"
-          >
-            Agents
-          </button>
-          <button 
-            onClick={() => scrollToSection('workflow')} 
-            className="text-white/80 hover:text-white transition-colors"
-          >
-            Workflow
-          </button>
-          <button 
-            onClick={() => scrollToSection('showcase')} 
-            className="text-white/80 hover:text-white transition-colors"
-          >
-            Showcase
-          </button>
+          <NavLink to="/" label="Home" isActive={isActive('/')} onClick={() => setIsMenuOpen(false)} />
+          <NavLink to="/about" label="About" isActive={isActive('/about')} onClick={() => setIsMenuOpen(false)} />
+          <NavLink to="/agents" label="Agents" isActive={isActive('/agents')} onClick={() => setIsMenuOpen(false)} />
+          <NavLink to="/workflow" label="Workflow" isActive={isActive('/workflow')} onClick={() => setIsMenuOpen(false)} />
+          <NavLink to="/showcase" label="Showcase" isActive={isActive('/showcase')} onClick={() => setIsMenuOpen(false)} />
+          <NavLink to="/simulate" label="Simulate" isActive={isActive('/simulate')} onClick={() => setIsMenuOpen(false)} />
+          <NavLink to="/contact" label="Contact" isActive={isActive('/contact')} onClick={() => setIsMenuOpen(false)} />
           
           {user ? (
             <Button 
@@ -122,42 +120,31 @@ const Navbar: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-syntra-dark/95 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            <button 
-              onClick={() => scrollToSection('home')} 
-              className="text-white/80 hover:text-white transition-colors py-2 text-left"
-            >
-              Home
-            </button>
-            <button 
-              onClick={() => scrollToSection('agents')} 
-              className="text-white/80 hover:text-white transition-colors py-2 text-left"
-            >
-              Agents
-            </button>
-            <button 
-              onClick={() => scrollToSection('workflow')} 
-              className="text-white/80 hover:text-white transition-colors py-2 text-left"
-            >
-              Workflow
-            </button>
-            <button 
-              onClick={() => scrollToSection('showcase')} 
-              className="text-white/80 hover:text-white transition-colors py-2 text-left"
-            >
-              Showcase
-            </button>
+            <NavLink to="/" label="Home" isActive={isActive('/')} onClick={() => setIsMenuOpen(false)} />
+            <NavLink to="/about" label="About" isActive={isActive('/about')} onClick={() => setIsMenuOpen(false)} />
+            <NavLink to="/agents" label="Agents" isActive={isActive('/agents')} onClick={() => setIsMenuOpen(false)} />
+            <NavLink to="/workflow" label="Workflow" isActive={isActive('/workflow')} onClick={() => setIsMenuOpen(false)} />
+            <NavLink to="/showcase" label="Showcase" isActive={isActive('/showcase')} onClick={() => setIsMenuOpen(false)} />
+            <NavLink to="/simulate" label="Simulate" isActive={isActive('/simulate')} onClick={() => setIsMenuOpen(false)} />
+            <NavLink to="/contact" label="Contact" isActive={isActive('/contact')} onClick={() => setIsMenuOpen(false)} />
             
             {user ? (
               <>
                 <Button 
-                  onClick={() => navigate('/dashboard')} 
+                  onClick={() => {
+                    navigate('/dashboard');
+                    setIsMenuOpen(false);
+                  }}
                   variant="outline" 
                   className="border-syntra-purple text-syntra-purple hover:bg-syntra-purple/20 w-full"
                 >
                   Dashboard
                 </Button>
                 <Button 
-                  onClick={() => signOut()} 
+                  onClick={() => {
+                    signOut();
+                    setIsMenuOpen(false);
+                  }}
                   variant="ghost" 
                   className="w-full text-gray-400"
                 >
@@ -166,7 +153,10 @@ const Navbar: React.FC = () => {
               </>
             ) : (
               <Button 
-                onClick={handleAuthAction} 
+                onClick={() => {
+                  handleAuthAction();
+                  setIsMenuOpen(false);
+                }}
                 variant="outline" 
                 className="border-syntra-purple text-syntra-purple hover:bg-syntra-purple/20 w-full"
               >

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import AnimatedContainer from "@/components/AnimatedContainer";
-import { animate, random } from 'animejs';
+import anime from 'animejs';
+
+const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -20,7 +21,7 @@ const Signup = () => {
   
   useEffect(() => {
     // Animate elements
-    animate({
+    anime({
       targets: ".signup-element",
       opacity: [0, 1],
       translateY: [20, 0],
@@ -29,7 +30,7 @@ const Signup = () => {
     });
     
     // Animate background particles
-    const particlesAnimation = animate({
+    const particlesAnimation = anime({
       targets: ".signup-particle",
       translateX: function() { return random(-20, 20); },
       translateY: function() { return random(-20, 20); },
@@ -100,7 +101,7 @@ const Signup = () => {
           <CardHeader>
             <CardTitle className="signup-element text-2xl text-center gradient-text">Create an Account</CardTitle>
             <CardDescription className="signup-element text-center text-gray-400">
-              Join SYNTRA and start your AI automation journey
+              Join Orbynet and start your AI automation journey
             </CardDescription>
           </CardHeader>
           <CardContent>

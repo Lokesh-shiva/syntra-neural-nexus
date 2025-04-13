@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import AnimatedContainer from "@/components/AnimatedContainer";
-import { animate, random } from 'animejs';
+import anime from 'animejs';
+
+const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
   
   useEffect(() => {
     // Animate elements
-    animate({
+    anime({
       targets: ".login-element",
       opacity: [0, 1],
       translateY: [20, 0],
@@ -26,7 +27,7 @@ const Login = () => {
     });
     
     // Animate background particles
-    const particlesAnimation = animate({
+    const particlesAnimation = anime({
       targets: ".login-particle",
       translateX: function() { return random(-20, 20); },
       translateY: function() { return random(-20, 20); },
@@ -80,7 +81,7 @@ const Login = () => {
       <AnimatedContainer className="w-full max-w-md z-10">
         <Card className="w-full backdrop-blur-lg bg-syntra-dark/70 border-syntra-purple/20">
           <CardHeader>
-            <CardTitle className="login-element text-2xl text-center gradient-text">Login to SYNTRA</CardTitle>
+            <CardTitle className="login-element text-2xl text-center gradient-text">Login to Orbynet</CardTitle>
             <CardDescription className="login-element text-center text-gray-400">
               Enter your credentials to access your account
             </CardDescription>
