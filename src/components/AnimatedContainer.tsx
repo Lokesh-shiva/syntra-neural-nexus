@@ -1,6 +1,5 @@
-
 import { useEffect, useRef } from "react";
-import anime from "animejs";
+import anime from "animejs/lib/anime.es.js";  // Specify the correct module path
 
 interface AnimatedContainerProps {
   children: React.ReactNode;
