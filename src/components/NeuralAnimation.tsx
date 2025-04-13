@@ -29,19 +29,7 @@ const NeuralAnimation: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size to match parent
-    const resizeCanvas = () => {
-      const parent = canvas.parentElement;
-      if (parent) {
-        canvas.width = parent.clientWidth;
-        canvas.height = parent.clientHeight;
-        initParticles();
-      }
-    };
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
+    // Define initParticles function before it's used
     const initParticles = () => {
       const numParticles = Math.min(30, Math.floor(canvas.width * canvas.height / 20000));
       const particles: Particle[] = [];
@@ -64,6 +52,16 @@ const NeuralAnimation: React.FC = () => {
       updateConnections();
     };
     
+    // Now we can safely reference initParticles in resizeCanvas
+    const resizeCanvas = () => {
+      const parent = canvas.parentElement;
+      if (parent) {
+        canvas.width = parent.clientWidth;
+        canvas.height = parent.clientHeight;
+        initParticles();
+      }
+    };
+
     const updateConnections = () => {
       const connections: Connection[] = [];
       const particles = particlesRef.current;
@@ -128,6 +126,9 @@ const NeuralAnimation: React.FC = () => {
       
       animationFrameRef.current = requestAnimationFrame(animate);
     };
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
     
     // Start animation
     animate();
