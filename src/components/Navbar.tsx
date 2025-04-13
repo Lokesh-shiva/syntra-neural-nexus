@@ -2,10 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +38,15 @@ const Navbar: React.FC = () => {
     }
     setIsMenuOpen(false);
   };
+  
+  const handleAuthAction = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <nav
@@ -43,7 +56,7 @@ const Navbar: React.FC = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center">
-          <span className="text-2xl font-bold gradient-text">SYNTRA</span>
+          <Link to="/" className="text-2xl font-bold gradient-text">SYNTRA</Link>
         </div>
 
         {/* Desktop Navigation */}
@@ -72,13 +85,24 @@ const Navbar: React.FC = () => {
           >
             Showcase
           </button>
-          <Button 
-            onClick={() => scrollToSection('contact')} 
-            variant="outline" 
-            className="border-syntra-purple text-syntra-purple hover:bg-syntra-purple/20"
-          >
-            Join Beta
-          </Button>
+          
+          {user ? (
+            <Button 
+              onClick={() => navigate('/dashboard')} 
+              variant="outline" 
+              className="border-syntra-purple text-syntra-purple hover:bg-syntra-purple/20"
+            >
+              Dashboard
+            </Button>
+          ) : (
+            <Button 
+              onClick={() => navigate('/login')} 
+              variant="outline" 
+              className="border-syntra-purple text-syntra-purple hover:bg-syntra-purple/20"
+            >
+              Sign In
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -122,13 +146,33 @@ const Navbar: React.FC = () => {
             >
               Showcase
             </button>
-            <Button 
-              onClick={() => scrollToSection('contact')} 
-              variant="outline" 
-              className="border-syntra-purple text-syntra-purple hover:bg-syntra-purple/20 w-full"
-            >
-              Join Beta
-            </Button>
+            
+            {user ? (
+              <>
+                <Button 
+                  onClick={() => navigate('/dashboard')} 
+                  variant="outline" 
+                  className="border-syntra-purple text-syntra-purple hover:bg-syntra-purple/20 w-full"
+                >
+                  Dashboard
+                </Button>
+                <Button 
+                  onClick={() => signOut()} 
+                  variant="ghost" 
+                  className="w-full text-gray-400"
+                >
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <Button 
+                onClick={handleAuthAction} 
+                variant="outline" 
+                className="border-syntra-purple text-syntra-purple hover:bg-syntra-purple/20 w-full"
+              >
+                Sign In
+              </Button>
+            )}
           </div>
         </div>
       )}
