@@ -28,7 +28,7 @@ A futuristic AI content automation platform that demonstrates the potential of A
 1. Clone the repository:
 \`\`\`bash
 git clone [https://github.com/yourusername/orbynet.git](https://github.com/Lokesh-shiva/syntra-neural-nexus.git)
-cd orbynet
+cd syntra-neural-nexus
 \`\`\`
 
 2. Install dependencies:
